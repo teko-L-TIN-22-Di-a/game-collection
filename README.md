@@ -1,3 +1,2 @@
 # game-collection
-
 Spielesammlung

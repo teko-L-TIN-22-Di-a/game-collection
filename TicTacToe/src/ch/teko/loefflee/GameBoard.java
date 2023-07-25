@@ -4,7 +4,7 @@ package ch.teko.loefflee;
 
 public class GameBoard {
     
-    char [][] gameBoard ={{' ', ' ', ' '},
+    char [][] gameBoard1fgggggggggffgfg ={{' ', ' ', ' '},
                           {' ', ' ', ' '}, 
                           {' ', ' ', ' '},};
 

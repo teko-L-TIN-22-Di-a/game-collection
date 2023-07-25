@@ -72,9 +72,7 @@
                                   <Component id="ButtonTR" min="-2" pref="100" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="ButtonTL1" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                          <EmptySpace min="21" pref="227" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -88,7 +86,6 @@
                       <Component id="ButtonTM" alignment="0" pref="100" max="32767" attributes="0"/>
                       <Component id="ButtonTR" alignment="0" pref="100" max="32767" attributes="0"/>
                       <Component id="ButtonTL" alignment="0" pref="100" max="32767" attributes="0"/>
-                      <Component id="ButtonTL1" alignment="0" pref="100" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
@@ -110,13 +107,15 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="ButtonTL">
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ButtonTLMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonTLActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ButtonTR">
         </Component>
         <Component class="javax.swing.JButton" name="ButtonTM">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonTMActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ButtonML">
         </Component>
@@ -129,11 +128,6 @@
         <Component class="javax.swing.JButton" name="ButtonBR">
         </Component>
         <Component class="javax.swing.JButton" name="ButtonBM">
-        </Component>
-        <Component class="javax.swing.JButton" name="ButtonTL1">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonTL1ActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -1,11 +1,8 @@
-
 package ch.teko.loefflee;
-
 
 import java.awt.event.ActionEvent;
 
 public class Buttons extends javax.swing.JFrame {
-
 
     public Buttons() {
         initComponents();
@@ -32,15 +29,8 @@ public class Buttons extends javax.swing.JFrame {
         ButtonBL = new javax.swing.JButton();
         ButtonBR = new javax.swing.JButton();
         ButtonBM = new javax.swing.JButton();
-        ButtonTL1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-//        ButtonTL.addMouseListener(new java.awt.event.MouseAdapter() {
-//            public void mouseClicked(java.awt.event.MouseEvent evt) {
-//                ButtonTLMouseClicked(evt);
-//            }
-//        });
 
         ButtonTL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -48,85 +38,76 @@ public class Buttons extends javax.swing.JFrame {
             }
         });
 
-        ButtonBR.addActionListener(new java.awt.event.ActionListener() {
+        ButtonTM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonBRActionPerformed(evt);
-            }
-        });
-
-        ButtonBL.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonBLActionPerformed(evt);
+                ButtonTMActionPerformed(evt);
             }
         });
 
         javax.swing.GroupLayout ButtonBackLayout = new javax.swing.GroupLayout(ButtonBack);
         ButtonBack.setLayout(ButtonBackLayout);
         ButtonBackLayout.setHorizontalGroup(
-                ButtonBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(ButtonBackLayout.createSequentialGroup()
-                                .addGap(74, 74, 74)
-                                .addGroup(ButtonBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(ButtonBackLayout.createSequentialGroup()
-                                                .addComponent(ButtonBL, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(ButtonBM, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(ButtonBR, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addContainerGap(227, Short.MAX_VALUE))
-                                        .addGroup(ButtonBackLayout.createSequentialGroup()
-                                                .addGroup(ButtonBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addGroup(ButtonBackLayout.createSequentialGroup()
-                                                                .addComponent(ButtonML, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(18, 18, 18)
-                                                                .addComponent(ButtonMM, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(18, 18, 18)
-                                                                .addComponent(ButtonMR, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(ButtonBackLayout.createSequentialGroup()
-                                                                .addComponent(ButtonTL, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(18, 18, 18)
-                                                                .addComponent(ButtonTM, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(18, 18, 18)
-                                                                .addComponent(ButtonTR, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(ButtonTL1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(21, 21, 21))))
+            ButtonBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ButtonBackLayout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addGroup(ButtonBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ButtonBackLayout.createSequentialGroup()
+                        .addComponent(ButtonBL, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ButtonBM, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ButtonBR, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(227, Short.MAX_VALUE))
+                    .addGroup(ButtonBackLayout.createSequentialGroup()
+                        .addGroup(ButtonBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(ButtonBackLayout.createSequentialGroup()
+                                .addComponent(ButtonML, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(ButtonMM, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(ButtonMR, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(ButtonBackLayout.createSequentialGroup()
+                                .addComponent(ButtonTL, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(ButtonTM, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(ButtonTR, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(21, 227, Short.MAX_VALUE))))
         );
         ButtonBackLayout.setVerticalGroup(
-                ButtonBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(ButtonBackLayout.createSequentialGroup()
-                                .addGap(69, 69, 69)
-                                .addGroup(ButtonBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(ButtonTM, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                        .addComponent(ButtonTR, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                        .addComponent(ButtonTL, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                        .addComponent(ButtonTL1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(ButtonBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(ButtonMM, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(ButtonMR, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(ButtonML, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(ButtonBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(ButtonBM, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(ButtonBR, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(ButtonBL, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(143, Short.MAX_VALUE))
+            ButtonBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ButtonBackLayout.createSequentialGroup()
+                .addGap(69, 69, 69)
+                .addGroup(ButtonBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ButtonTM, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(ButtonTR, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(ButtonTL, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(ButtonBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ButtonMM, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonMR, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonML, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(ButtonBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ButtonBM, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonBR, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonBL, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 526, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 526, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 61, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 61, Short.MAX_VALUE))
         );
 
         pack();
@@ -138,29 +119,12 @@ public class Buttons extends javax.swing.JFrame {
             ButtonTL.setText("X");
 
             //Perform CPU Move
-
         }
     }//GEN-LAST:event_ButtonTLActionPerformed
 
-    private void ButtonBLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTL1ActionPerformed
-        if (ButtonBL.getText() == "") {
-            gameboard.setvalue(0, 2);
-            ButtonBL.setText("X");
+    private void ButtonTMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTMActionPerformed
 
-            //Perform CPU Move
-
-        }
-    }//GEN-LAST:event_ButtonTL1ActionPerformed
-
-    private void ButtonBRActionPerformed(ActionEvent evt) {//GEN-FIRST:event_ButtonTLMouseClicked
-        if (ButtonBR.getText() == "") {
-            gameboard.setvalue(2, 2);
-            ButtonBR.setText("X");
-
-            //Perform CPU Move
-
-        }
-    }//GEN-LAST:event_ButtonTLMouseClicked
+    }//GEN-LAST:event_ButtonTMActionPerformed
 
     /**
      * @param args the command line arguments
@@ -207,8 +171,10 @@ public class Buttons extends javax.swing.JFrame {
     private javax.swing.JButton ButtonMM;
     private javax.swing.JButton ButtonMR;
     private javax.swing.JButton ButtonTL;
-    private javax.swing.JButton ButtonTL1;
     private javax.swing.JButton ButtonTM;
     private javax.swing.JButton ButtonTR;
     // End of variables declaration//GEN-END:variables
 }
+
+// - für alle buttons if-SCHLEIFE machen
+// - logik von toeee umbasteln

@@ -1,13 +1,13 @@
 package Chess.util;
 
-import Chess.pieces.BasePiece;
-import Chess.pieces.PieceEnum;
+import Chess.pieces.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import static Chess.util.Chessboard.getSquares;
 
@@ -36,7 +36,15 @@ public class Square implements MouseListener {
         this.squarePanel.setAlignmentX(JLabel.CENTER);
         this.squarePanel.setAlignmentY(JLabel.CENTER);
 
-        this.currentPiece = type != null ? new BasePiece(type, color) : null;
+        this.currentPiece = type != null ?
+                switch (type) {
+                    case Bishop -> new Bishop(type, color);
+                    case King -> new King(type, color);
+                    case Pawn -> new Pawn(type, color);
+                    case Rook -> new Rook(type, color);
+                    case Queen -> new Queen(type, color);
+                    case Knight -> new Knight(type, color);
+                } : null;
 
         Border squareBorder = BorderFactory.createLineBorder(Color.black);
         this.squarePanel.setBorder(squareBorder);
@@ -44,55 +52,55 @@ public class Square implements MouseListener {
         if (currentPiece != null) {
             this.squarePanel.add(currentPiece.pieceIcon, "push, align center");
         }
+
     }
 
     public void setBackgroundSquare(Color color) {
         this.squarePanel.setBackground(color);
     }
 
-    public void showPossibleMoves() {
+    public void showPossibleMoves(ArrayList<MoveCoordinates> moveList) {
         var squares = getSquares();
-        if (squares[this.coordinateX][this.coordinateY].currentPiece != null) {
-            if (squares[this.coordinateX][this.coordinateY].currentPiece.color == BasePiece.PieceColor.BLACK) {
-                squares[this.coordinateX + 1][this.coordinateY].setBackgroundSquare(Color.red);
-            } else {
-                squares[this.coordinateX - 1][this.coordinateY].setBackgroundSquare(Color.red);
-            }
+
+        for (int i = 0; i < moveList.size(); i++) {
+            squares[moveList.get(i).cordX][moveList.get(i).cordY].squarePanel.setBorder(BorderFactory.createLineBorder(Color.red));
         }
     }
 
-    public void removePossibleMoves() {
+    public void removePossibleMoves(ArrayList<MoveCoordinates> moveList) {
         var squares = getSquares();
-        if (squares[this.coordinateX][this.coordinateY].currentPiece != null) {
-            if (squares[this.coordinateX][this.coordinateY].currentPiece.color == BasePiece.PieceColor.BLACK) {
-                squares[this.coordinateX + 1][this.coordinateY].setBackgroundSquare(Color.red);
-            } else {
-                squares[this.coordinateX - 1][this.coordinateY].setBackgroundSquare(Color.red);
-            }
+        for (int i = 0; i < moveList.size(); i++) {
+            squares[moveList.get(i).cordX][moveList.get(i).cordY].squarePanel.setBorder(BorderFactory.createLineBorder(Color.black));
         }
     }
 
     public void initMove() {
         new Move(this.coordinateX, this.coordinateY, this.currentPiece);
+        showPossibleMoves(Move.getPossibleMoves());
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        this.initMove();
+        if(this.currentPiece != null) {
+            this.initMove();
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         var squares = getSquares();
+        removePossibleMoves(Move.getPossibleMoves());
 
-        if (squares[Move.currentX][Move.currentY].squarePanel.getComponents().length > 0 && Move.validMove()) {
-            JPanel originalPanel = squares[Move.currentX][Move.currentY].squarePanel;
-            JPanel destinationPanel = squares[Move.newX][Move.newY].squarePanel;
-            destinationPanel.removeAll();
-            destinationPanel.add(originalPanel.getComponent(0));
-            destinationPanel.repaint();
-            originalPanel.removeAll();
-            originalPanel.repaint();
+        if (squares[Move.currentCords.cordX][Move.currentCords.cordY].squarePanel.getComponents().length > 0 && Move.validMove()) {
+            Square originalSquare = squares[Move.currentCords.cordX][Move.currentCords.cordY];
+            Square destinationSquare = squares[Move.newCords.cordX][Move.newCords.cordY];
+            destinationSquare.squarePanel.removeAll();
+            destinationSquare.squarePanel.add(originalSquare.squarePanel.getComponent(0));
+            destinationSquare.squarePanel.repaint();
+            originalSquare.squarePanel.removeAll();
+            originalSquare.squarePanel.repaint();
+            destinationSquare.currentPiece = originalSquare.currentPiece;
+            originalSquare.currentPiece = null;
         }
     }
 

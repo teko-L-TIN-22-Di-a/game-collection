@@ -34,7 +34,6 @@ public class BasePiece {
             case King:
                 //init image
                 this.pieceIcon = this.createImage("GameCollection/src/Chess/assets/" + colorString + "_king_1x.png");
-                //init move set
                 break;
             case Pawn:
                 this.pieceIcon = this.createImage("GameCollection/src/Chess/assets/" + colorString + "_pawn_1x.png");
@@ -64,9 +63,5 @@ public class BasePiece {
             ex.printStackTrace();
             throw null;
         }
-    }
-
-    public void emptyPiece() {
-        this.pieceIcon.setIcon(null);
     }
 }

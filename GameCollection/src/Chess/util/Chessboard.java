@@ -22,7 +22,7 @@ public class Chessboard extends JPanel {
     }
 
     public void drawChessboard() {
-        chessboard.setLayout(new GridLayout(8, 8));
+        chessboard.setLayout(new GridLayout(rows, rows));
 
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {

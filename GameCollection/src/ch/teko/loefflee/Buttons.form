@@ -53,28 +53,25 @@
                           <Component id="ButtonBM" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="ButtonBR" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace pref="227" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="ButtonML" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="ButtonMM" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="ButtonMR" min="-2" pref="100" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="ButtonTL" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="ButtonTM" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="ButtonTR" min="-2" pref="100" max="-2" attributes="0"/>
-                              </Group>
+                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="ButtonML" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="ButtonMM" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="ButtonMR" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="21" pref="227" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="ButtonTL" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="ButtonTM" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="ButtonTR" min="-2" pref="100" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
+                  <EmptySpace pref="227" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -111,6 +108,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ButtonTR">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonTRActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ButtonTM">
           <Events>
@@ -118,16 +118,34 @@
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ButtonML">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonMLActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ButtonMR">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonMRActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ButtonMM">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonMMActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ButtonBL">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonBLActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ButtonBR">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonBRActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ButtonBM">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonBMActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

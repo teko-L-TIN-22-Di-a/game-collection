@@ -1,6 +1,10 @@
 package Chess.pieces;
+
 import Chess.util.MoveCoordinates;
+
 import java.util.ArrayList;
+
+import static Chess.util.MoveSet.addPawnMoves;
 
 public class Pawn extends BasePiece {
     public Pawn(PieceEnum type, PieceColor color) {
@@ -12,17 +16,7 @@ public class Pawn extends BasePiece {
         int moveX = move.cordX;
         int moveY = move.cordY;
 
-        if(this.color == PieceColor.WHITE) {
-            if(moveX == 6) {
-                moves.add(new MoveCoordinates(moveX - 2, moveY));
-            }
-            moves.add(new MoveCoordinates(moveX - 1, moveY));
-        } else if(this.color == PieceColor.BLACK) {
-            if(moveX == 1) {
-                moves.add(new MoveCoordinates(moveX + 2, moveY));
-            }
-            moves.add(new MoveCoordinates(moveX + 1, moveY));
-        }
+        moves = addPawnMoves(moveX, moveY, moves, this.color);
 
         return moves;
     }

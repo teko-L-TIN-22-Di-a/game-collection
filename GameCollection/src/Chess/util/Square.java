@@ -81,26 +81,29 @@ public class Square implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if(this.currentPiece != null) {
+        if(this.currentPiece != null && this.currentPiece.color == GameState.CurrentColorMove) {
             this.initMove();
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        var squares = getSquares();
-        removePossibleMoves(Move.getPossibleMoves());
+        if(Move.currentPiece != null) {
+            var squares = getSquares();
+            removePossibleMoves(Move.getPossibleMoves());
 
-        if (squares[Move.currentCords.cordX][Move.currentCords.cordY].squarePanel.getComponents().length > 0 && Move.validMove()) {
-            Square originalSquare = squares[Move.currentCords.cordX][Move.currentCords.cordY];
-            Square destinationSquare = squares[Move.newCords.cordX][Move.newCords.cordY];
-            destinationSquare.squarePanel.removeAll();
-            destinationSquare.squarePanel.add(originalSquare.squarePanel.getComponent(0));
-            destinationSquare.squarePanel.repaint();
-            originalSquare.squarePanel.removeAll();
-            originalSquare.squarePanel.repaint();
-            destinationSquare.currentPiece = originalSquare.currentPiece;
-            originalSquare.currentPiece = null;
+            if (squares[Move.currentCords.cordX][Move.currentCords.cordY].squarePanel.getComponents().length > 0 && Move.validMove()) {
+                Square originalSquare = squares[Move.currentCords.cordX][Move.currentCords.cordY];
+                Square destinationSquare = squares[Move.newCords.cordX][Move.newCords.cordY];
+                destinationSquare.squarePanel.removeAll();
+                destinationSquare.squarePanel.add(originalSquare.squarePanel.getComponent(0));
+                destinationSquare.squarePanel.repaint();
+                originalSquare.squarePanel.removeAll();
+                originalSquare.squarePanel.repaint();
+                destinationSquare.currentPiece = originalSquare.currentPiece;
+                originalSquare.currentPiece = null;
+                GameState.updateGameState();
+            }
         }
     }
 

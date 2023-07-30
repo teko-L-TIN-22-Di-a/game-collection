@@ -18,10 +18,11 @@ public class Chessboard extends JPanel {
     public static Square[][] squares = new Square[rows][cols];
 
     public Chessboard() {
-        drawChessboard();
+        initChessboard();
     }
 
-    public void drawChessboard() {
+    public void initChessboard() {
+        initGameState();
         chessboard.setLayout(new GridLayout(rows, rows));
 
         for (int row = 0; row < rows; row++) {
@@ -37,6 +38,10 @@ public class Chessboard extends JPanel {
                 chessboard.add(squares[row][col].squarePanel);
             }
         }
+    }
+
+    private void initGameState() {
+        GameState.initGameState();
     }
 
     public void initPieces(int row, int col) {
@@ -66,13 +71,6 @@ public class Chessboard extends JPanel {
             squares[row][col] = new Square(row, col);
         }
     }
-
-//    private JLabel getPieceImageLabel(BasePiece piece) {
-//        Image pieceImage = new ImageIcon(getClass().getResource(piece.getImageFileName())).getImage();
-//        pieceImage = pieceImage.getScaledInstance(SQUARE_DIMENSION, SQUARE_DIMENSION, Image.SCALE_SMOOTH);
-//        JLabel pieceImageLabel = new JLabel(new ImageIcon(pieceImage));
-//        return pieceImageLabel;
-//    }
 
     public JPanel getChessboard() {
         return chessboard;

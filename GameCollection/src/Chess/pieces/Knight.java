@@ -1,6 +1,4 @@
 package Chess.pieces;
-
-import Chess.util.Chessboard;
 import Chess.util.MoveCoordinates;
 import Chess.util.MoveSet;
 

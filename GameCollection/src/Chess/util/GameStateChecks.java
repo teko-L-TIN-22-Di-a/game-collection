@@ -10,71 +10,47 @@ import static Chess.util.MoveSet.*;
 
 public class GameStateChecks {
     public static ArrayList<MoveCoordinates> CurrentPiecesToCheck = new ArrayList<>();
-    public static ArrayList<MoveCoordinates> DangerousSquares = new ArrayList<>();
+    public static ArrayList<MoveCoordinates> DangerousSquaresBlack = new ArrayList<>();
+    public static ArrayList<MoveCoordinates> DangerousSquaresWhite = new ArrayList<>();
 
-    public static void isAttackedByKnight() {
-        BasePiece.PieceColor enemyColor = GameState.CurrentColorMove;
-
-        //Fill CurrentPiecesToCheck
-        setCurrentPiecesToCheck(PieceEnum.Knight, enemyColor);
-        fillDangerousSquares(PieceEnum.Knight, enemyColor);
+    public static void setAllAttackMoves() {
+        for (BasePiece.PieceColor color : BasePiece.PieceColor.values()) {
+            for (PieceEnum pieceType : PieceEnum.values()) {
+                setCurrentPiecesToCheck(pieceType, color);
+                fillDangerousSquares(pieceType, color, false);
+            }
+        }
     }
 
-    public static void isAttackedByPawn() {
-        BasePiece.PieceColor enemyColor = GameState.CurrentColorMove;
-
-        //Fill CurrentPiecesToCheck
-        setCurrentPiecesToCheck(PieceEnum.Pawn, enemyColor);
-        fillDangerousSquares(PieceEnum.Pawn, enemyColor);
-
-    }
-
-    public static void isAttackedByQueen() {
-        BasePiece.PieceColor enemyColor = GameState.CurrentColorMove;
-
-        //Fill CurrentPiecesToCheck
-        setCurrentPiecesToCheck(PieceEnum.Queen, enemyColor);
-        fillDangerousSquares(PieceEnum.Queen, enemyColor);
-
-    }
-
-    public static void isAttackedByBishop() {
-        BasePiece.PieceColor enemyColor = GameState.CurrentColorMove;
-        //Fill CurrentPiecesToCheck
-        setCurrentPiecesToCheck(PieceEnum.Bishop, enemyColor);
-        fillDangerousSquares(PieceEnum.Bishop, enemyColor);
+    private static void fillDangerousSquares(PieceEnum type, BasePiece.PieceColor color, boolean theoretical) {
+        if (theoretical) {
+//            if (color == BasePiece.PieceColor.WHITE) {
+//                setMovesHelper(type, DangerousSquaresWhiteTheoretical, BasePiece.PieceColor.WHITE, CurrentPiecesToCheckTheoretical);
+//            } else {
+//                setMovesHelper(type, DangerousSquaresBlackTheoretical, BasePiece.PieceColor.BLACK, CurrentPiecesToCheckTheoretical);
+//            }
+        } else {
+            if (color == BasePiece.PieceColor.WHITE) {
+                setMovesHelper(type, DangerousSquaresWhite, BasePiece.PieceColor.WHITE, CurrentPiecesToCheck);
+            } else {
+                setMovesHelper(type, DangerousSquaresBlack, BasePiece.PieceColor.BLACK, CurrentPiecesToCheck);
+            }
+        }
 
     }
 
-    public static void isAttackedByRook() {
-        BasePiece.PieceColor enemyColor = GameState.CurrentColorMove;
-        //Fill CurrentPiecesToCheck
-        setCurrentPiecesToCheck(PieceEnum.Rook, enemyColor);
-        fillDangerousSquares(PieceEnum.Rook, enemyColor);
-
-
-    }
-
-    public static void isAttackedByKing() {
-        BasePiece.PieceColor enemyColor = GameState.CurrentColorMove;
-        //Fill CurrentPiecesToCheck
-        setCurrentPiecesToCheck(PieceEnum.King, enemyColor);
-        fillDangerousSquares(PieceEnum.King, enemyColor);
-
-    }
-
-    private static void fillDangerousSquares(PieceEnum type, BasePiece.PieceColor enemyColor) {
-        for (MoveCoordinates pieceSquare : CurrentPiecesToCheck) {
-            switch(type) {
-                case Knight -> addKnightMoves(pieceSquare.cordX, pieceSquare.cordY, DangerousSquares);
-                case Pawn -> addPawnMoves(pieceSquare.cordX, pieceSquare.cordY, DangerousSquares, enemyColor);
+    public static void setMovesHelper(PieceEnum type, ArrayList<MoveCoordinates> dangerousSquares, BasePiece.PieceColor color, ArrayList<MoveCoordinates> piecesToCheck) {
+        for (MoveCoordinates pieceSquare : piecesToCheck) {
+            switch (type) {
+                case Knight -> addKnightMoves(pieceSquare.cordX, pieceSquare.cordY, dangerousSquares, color);
+                case Pawn -> addPawnMoves(pieceSquare.cordX, pieceSquare.cordY, dangerousSquares, color);
                 case Queen -> {
-                    addIntercardinalMoves(pieceSquare.cordX, pieceSquare.cordY, DangerousSquares);
-                    addCardinalMoves(pieceSquare.cordX, pieceSquare.cordY, DangerousSquares);
+                    addIntercardinalMoves(pieceSquare.cordX, pieceSquare.cordY, dangerousSquares, color);
+                    addCardinalMoves(pieceSquare.cordX, pieceSquare.cordY, dangerousSquares, color);
                 }
-                case Bishop -> addIntercardinalMoves(pieceSquare.cordX, pieceSquare.cordY, DangerousSquares);
-                case Rook -> addCardinalMoves(pieceSquare.cordX, pieceSquare.cordY, DangerousSquares);
-                case King -> addKingMoves(pieceSquare.cordX, pieceSquare.cordY, DangerousSquares);
+                case Bishop -> addIntercardinalMoves(pieceSquare.cordX, pieceSquare.cordY, dangerousSquares, color);
+                case Rook -> addCardinalMoves(pieceSquare.cordX, pieceSquare.cordY, dangerousSquares, color);
+                case King -> addKingMoves(pieceSquare.cordX, pieceSquare.cordY, dangerousSquares, color);
             }
         }
     }
@@ -92,4 +68,32 @@ public class GameStateChecks {
 
         CurrentPiecesToCheck = pieces;
     }
+
+
+//    public static ArrayList<MoveCoordinates> CurrentPiecesToCheckTheoretical = new ArrayList<>();
+//    public static ArrayList<MoveCoordinates> DangerousSquaresBlackTheoretical = new ArrayList<>();
+//    public static ArrayList<MoveCoordinates> DangerousSquaresWhiteTheoretical = new ArrayList<>();
+//
+//    public static void setAllAttackMovesTheoretical(MoveCoordinates pieceToRemove, BasePiece.PieceColor pieceColor) {
+//        for (PieceEnum pieceType : PieceEnum.values()) {
+//            setCurrentPiecesToCheckTheoretical(pieceType, pieceColor, pieceToRemove);
+//            fillDangerousSquares(pieceType, pieceColor, true);
+//        }
+//    }
+//
+//    private static void setCurrentPiecesToCheckTheoretical(PieceEnum type, BasePiece.PieceColor colorToCheck, MoveCoordinates pieceToRemove) {
+//        ArrayList<MoveCoordinates> pieces = new ArrayList<>();
+//        for (int x = 0; x < 8; x++) {
+//            for (int y = 0; y < 8; y++) {
+//                if (!(x == pieceToRemove.cordX && y == pieceToRemove.cordY)) {
+//                    BasePiece currentPiece = squares[x][y].currentPiece;
+//                    if (currentPiece != null && currentPiece.pieceType == type && currentPiece.color == colorToCheck) {
+//                        pieces.add(new MoveCoordinates(x, y));
+//                    }
+//                }
+//            }
+//        }
+//
+//        CurrentPiecesToCheckTheoretical = pieces;
+//    }
 }

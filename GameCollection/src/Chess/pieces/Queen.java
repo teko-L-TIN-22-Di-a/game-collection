@@ -14,8 +14,8 @@ public class Queen extends BasePiece {
         int moveX = move.cordX;
         int moveY = move.cordY;
 
-        moves = MoveSet.addIntercardinalMoves(moveX, moveY, moves);
-        moves = MoveSet.addCardinalMoves(moveX, moveY, moves);
+        moves = MoveSet.addIntercardinalMoves(moveX, moveY, moves, null);
+        moves = MoveSet.addCardinalMoves(moveX, moveY, moves, null);
 
         return moves;
     }

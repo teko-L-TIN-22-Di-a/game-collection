@@ -10,6 +10,8 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import static Chess.util.Chessboard.getSquares;
+import static Chess.util.GameState.CheckStateBlack;
+import static Chess.util.GameState.CheckStateWhite;
 
 
 public class Square implements MouseListener {
@@ -81,14 +83,14 @@ public class Square implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if(this.currentPiece != null && this.currentPiece.color == GameState.CurrentColorMove) {
+        if (this.currentPiece != null && this.currentPiece.color == GameState.CurrentColorMove) {
             this.initMove();
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(Move.currentPiece != null) {
+        if (Move.currentPiece != null) {
             var squares = getSquares();
             removePossibleMoves(Move.getPossibleMoves());
 
@@ -103,8 +105,27 @@ public class Square implements MouseListener {
                 destinationSquare.currentPiece = originalSquare.currentPiece;
                 originalSquare.currentPiece = null;
                 GameState.updateGameState();
+
+                //Revert suicide move
+                if(Move.currentPiece.color == BasePiece.PieceColor.BLACK && CheckStateBlack || Move.currentPiece.color == BasePiece.PieceColor.WHITE && CheckStateWhite) {
+                    revertMove();
+                    GameState.updateGameState();
+                }
             }
         }
+    }
+
+    public void revertMove() {
+        var squares = getSquares();
+        Square originalSquare = squares[Move.currentCords.cordX][Move.currentCords.cordY];
+        Square destinationSquare = squares[Move.newCords.cordX][Move.newCords.cordY];
+        originalSquare.squarePanel.removeAll();
+        originalSquare.squarePanel.add(destinationSquare.squarePanel.getComponent(0));
+        originalSquare.squarePanel.repaint();
+        destinationSquare.squarePanel.removeAll();
+        destinationSquare.squarePanel.repaint();
+        originalSquare.currentPiece = destinationSquare.currentPiece;
+        destinationSquare.currentPiece = null;
     }
 
     @Override

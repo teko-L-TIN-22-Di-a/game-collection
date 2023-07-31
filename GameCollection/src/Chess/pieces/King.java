@@ -16,7 +16,7 @@ public class King extends BasePiece {
         int moveX = move.cordX;
         int moveY = move.cordY;
 
-        moves = addKingMoves(moveX, moveY, moves);
+        moves = addKingMoves(moveX, moveY, moves, null);
 
         return moves;
     }

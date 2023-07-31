@@ -14,7 +14,7 @@ public class Knight extends BasePiece {
         int moveX = move.cordX;
         int moveY = move.cordY;
 
-        moves = MoveSet.addKnightMoves(moveX, moveY, moves);
+        moves = MoveSet.addKnightMoves(moveX, moveY, moves, null);
 
         return moves;
     }

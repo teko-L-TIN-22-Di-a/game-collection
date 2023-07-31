@@ -15,7 +15,7 @@ public class Rook extends BasePiece {
         int moveY = move.cordY;
 
         //Add cardinalCoordinates
-        moves = MoveSet.addCardinalMoves(moveX, moveY, moves);
+        moves = MoveSet.addCardinalMoves(moveX, moveY, moves, null);
 
         return moves;
     }

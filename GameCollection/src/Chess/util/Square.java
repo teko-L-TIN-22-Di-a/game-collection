@@ -33,6 +33,7 @@ public class Square implements MouseListener {
         this.coordinateY = col;
 
         this.squarePanel = new JPanel();
+        this.squarePanel.setPreferredSize(new Dimension(80,80));
         this.squarePanel.addMouseListener(this);
 
         this.squarePanel.setAlignmentX(JLabel.CENTER);

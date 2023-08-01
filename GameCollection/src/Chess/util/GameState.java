@@ -14,7 +14,6 @@ import static Chess.util.MoveSet.addKingMoves;
 
 public class GameState {
     public static BasePiece.PieceColor CurrentColorMove;
-    //    public static BasePiece.PieceColor EnemyColor;
     public static ArrayList<BasePiece> CaughtWhitePieces;
     public static ArrayList<BasePiece> CaughtBlackPieces;
     public static boolean CheckStateWhite;
@@ -24,7 +23,8 @@ public class GameState {
 
     public static void initGameState() {
         CurrentColorMove = BasePiece.PieceColor.WHITE;
-//        EnemyColor = BasePiece.PieceColor.BLACK;
+        CheckStateBlack = false;
+        CheckStateWhite = false;
     }
 
     public static void updateGameState() {
@@ -219,6 +219,7 @@ public class GameState {
         }
     }
 
+    //Not implemented
     public static void putPieceInCaughtSet(BasePiece piece) {
         if (piece.color == BasePiece.PieceColor.WHITE) {
             CaughtWhitePieces.add(piece);

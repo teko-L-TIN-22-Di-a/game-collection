@@ -2,6 +2,8 @@ package Chess;
 
 import Chess.util.Chessboard;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public class Chess extends JFrame {
     public static Chessboard chessboard;
@@ -11,10 +13,11 @@ public class Chess extends JFrame {
         mainFrame = new JFrame("Chess");
         chessboard = new Chessboard();
 
-        mainFrame.add(chessboard.getChessboard());
-        mainFrame.setSize(700,700);
+        mainFrame.add(chessboard.getGUI());
+        mainFrame.pack();
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setMinimumSize(mainFrame.getSize());
         mainFrame.setVisible(true);
     }
 }

@@ -83,7 +83,7 @@ public class Square implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (this.currentPiece != null && this.currentPiece.color == GameState.CurrentColorMove) {
+        if (this.currentPiece != null ) { //&& this.currentPiece.color == GameState.CurrentColorMove
             this.initMove();
         }
     }
@@ -97,35 +97,33 @@ public class Square implements MouseListener {
             if (squares[Move.currentCords.cordX][Move.currentCords.cordY].squarePanel.getComponents().length > 0 && Move.validMove()) {
                 Square originalSquare = squares[Move.currentCords.cordX][Move.currentCords.cordY];
                 Square destinationSquare = squares[Move.newCords.cordX][Move.newCords.cordY];
-                destinationSquare.squarePanel.removeAll();
-                destinationSquare.squarePanel.add(originalSquare.squarePanel.getComponent(0));
-                destinationSquare.squarePanel.repaint();
-                originalSquare.squarePanel.removeAll();
-                originalSquare.squarePanel.repaint();
+                BasePiece destinationBackup = destinationSquare.currentPiece;
+
+
                 destinationSquare.currentPiece = originalSquare.currentPiece;
                 originalSquare.currentPiece = null;
                 GameState.updateGameState();
-
                 //Revert suicide move
                 if(Move.currentPiece.color == BasePiece.PieceColor.BLACK && CheckStateBlack || Move.currentPiece.color == BasePiece.PieceColor.WHITE && CheckStateWhite) {
-                    revertMove();
+                    revertMove(destinationBackup);
                     GameState.updateGameState();
+                } else {
+                    destinationSquare.squarePanel.removeAll();
+                    destinationSquare.squarePanel.add(originalSquare.squarePanel.getComponent(0));
+                    destinationSquare.squarePanel.repaint();
+                    originalSquare.squarePanel.removeAll();
+                    originalSquare.squarePanel.repaint();
                 }
             }
         }
     }
 
-    public void revertMove() {
+    public void revertMove(BasePiece backup) {
         var squares = getSquares();
         Square originalSquare = squares[Move.currentCords.cordX][Move.currentCords.cordY];
         Square destinationSquare = squares[Move.newCords.cordX][Move.newCords.cordY];
-        originalSquare.squarePanel.removeAll();
-        originalSquare.squarePanel.add(destinationSquare.squarePanel.getComponent(0));
-        originalSquare.squarePanel.repaint();
-        destinationSquare.squarePanel.removeAll();
-        destinationSquare.squarePanel.repaint();
         originalSquare.currentPiece = destinationSquare.currentPiece;
-        destinationSquare.currentPiece = null;
+        destinationSquare.currentPiece = backup;
     }
 
     @Override

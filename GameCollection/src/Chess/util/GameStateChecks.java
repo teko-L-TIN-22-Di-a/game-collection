@@ -24,11 +24,11 @@ public class GameStateChecks {
 
     private static void fillDangerousSquares(PieceEnum type, BasePiece.PieceColor color, boolean theoretical) {
         if (theoretical) {
-//            if (color == BasePiece.PieceColor.WHITE) {
-//                setMovesHelper(type, DangerousSquaresWhiteTheoretical, BasePiece.PieceColor.WHITE, CurrentPiecesToCheckTheoretical);
-//            } else {
-//                setMovesHelper(type, DangerousSquaresBlackTheoretical, BasePiece.PieceColor.BLACK, CurrentPiecesToCheckTheoretical);
-//            }
+            if (color == BasePiece.PieceColor.WHITE) {
+                setMovesHelper(type, DangerousSquaresWhiteTheoretical, BasePiece.PieceColor.WHITE, CurrentPiecesToCheckTheoretical);
+            } else {
+                setMovesHelper(type, DangerousSquaresBlackTheoretical, BasePiece.PieceColor.BLACK, CurrentPiecesToCheckTheoretical);
+            }
         } else {
             if (color == BasePiece.PieceColor.WHITE) {
                 setMovesHelper(type, DangerousSquaresWhite, BasePiece.PieceColor.WHITE, CurrentPiecesToCheck);
@@ -70,30 +70,32 @@ public class GameStateChecks {
     }
 
 
-//    public static ArrayList<MoveCoordinates> CurrentPiecesToCheckTheoretical = new ArrayList<>();
-//    public static ArrayList<MoveCoordinates> DangerousSquaresBlackTheoretical = new ArrayList<>();
-//    public static ArrayList<MoveCoordinates> DangerousSquaresWhiteTheoretical = new ArrayList<>();
-//
-//    public static void setAllAttackMovesTheoretical(MoveCoordinates pieceToRemove, BasePiece.PieceColor pieceColor) {
-//        for (PieceEnum pieceType : PieceEnum.values()) {
-//            setCurrentPiecesToCheckTheoretical(pieceType, pieceColor, pieceToRemove);
-//            fillDangerousSquares(pieceType, pieceColor, true);
-//        }
-//    }
-//
-//    private static void setCurrentPiecesToCheckTheoretical(PieceEnum type, BasePiece.PieceColor colorToCheck, MoveCoordinates pieceToRemove) {
-//        ArrayList<MoveCoordinates> pieces = new ArrayList<>();
-//        for (int x = 0; x < 8; x++) {
-//            for (int y = 0; y < 8; y++) {
-//                if (!(x == pieceToRemove.cordX && y == pieceToRemove.cordY)) {
-//                    BasePiece currentPiece = squares[x][y].currentPiece;
-//                    if (currentPiece != null && currentPiece.pieceType == type && currentPiece.color == colorToCheck) {
-//                        pieces.add(new MoveCoordinates(x, y));
-//                    }
-//                }
-//            }
-//        }
-//
-//        CurrentPiecesToCheckTheoretical = pieces;
-//    }
+    public static ArrayList<MoveCoordinates> CurrentPiecesToCheckTheoretical = new ArrayList<>();
+    public static ArrayList<MoveCoordinates> DangerousSquaresBlackTheoretical = new ArrayList<>();
+    public static ArrayList<MoveCoordinates> DangerousSquaresWhiteTheoretical = new ArrayList<>();
+
+    public static void setAllAttackMovesTheoretical(MoveCoordinates pieceToRemove, BasePiece.PieceColor pieceColor, boolean withoutKing) {
+        for (PieceEnum pieceType : PieceEnum.values()) {
+            if(!withoutKing || withoutKing && pieceType != PieceEnum.King) {
+                setCurrentPiecesToCheckTheoretical(pieceType, pieceColor, pieceToRemove);
+                fillDangerousSquares(pieceType, pieceColor, true);
+            }
+        }
+    }
+
+    private static void setCurrentPiecesToCheckTheoretical(PieceEnum type, BasePiece.PieceColor colorToCheck, MoveCoordinates pieceToRemove) {
+        ArrayList<MoveCoordinates> pieces = new ArrayList<>();
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                if (pieceToRemove == null || !(x == pieceToRemove.cordX && y == pieceToRemove.cordY)) {
+                    BasePiece currentPiece = squares[x][y].currentPiece;
+                    if (currentPiece != null && currentPiece.pieceType == type && currentPiece.color == colorToCheck) {
+                        pieces.add(new MoveCoordinates(x, y));
+                    }
+                }
+            }
+        }
+
+        CurrentPiecesToCheckTheoretical = pieces;
+    }
 }

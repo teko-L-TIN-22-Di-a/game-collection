@@ -57,14 +57,22 @@ public class GameState {
 
                 boolean gameOverWhite = true;
 
-                for(MoveCoordinates kingMove : kingMoves) {
-                    if(gameOverWhite && !DangerousSquaresBlack.stream().anyMatch(x -> x.cordX == kingMove.cordX && x.cordY == kingMove.cordY)
-                    ) {
-                        gameOverWhite = false;
+                //Can the king free itself?
+                for (MoveCoordinates kingMove : kingMoves) {
+                    if (gameOverWhite) {
+                        gameOverWhite = simulateKingMove(kingMove.cordX, kingMove.cordY, BasePiece.PieceColor.BLACK);
                     }
                 }
 
+                //Can another piece kill a dangerous piece? Are you safe then?
+                //Compare all dangerous moves from the enemy color with your pieces possible moves and re-check with the new ArrayList if the piece
+                //would get removed
                 if(gameOverWhite) {
+                    gameOverWhite = canCheckmateBeRemovedByAnotherPiece(gameOverWhite, BasePiece.PieceColor.BLACK);
+                }
+
+
+                if (gameOverWhite) {
                     JOptionPane.showMessageDialog(mainFrame, "White lost");
                 } else {
                     JOptionPane.showMessageDialog(mainFrame, "White King in Check");
@@ -84,21 +92,21 @@ public class GameState {
 
                 boolean gameOverBlack = true;
 
-                for(MoveCoordinates kingMove : kingMoves) {
-                    if(gameOverBlack && !DangerousSquaresWhite.stream().anyMatch(x -> x.cordX == kingMove.cordX && x.cordY == kingMove.cordY)
-                    ) {
-                        gameOverBlack = false;
+                //Can the king free itself?
+                for (MoveCoordinates kingMove : kingMoves) {
+                    if (gameOverBlack) {
+                        gameOverBlack = simulateKingMove(kingMove.cordX, kingMove.cordY, BasePiece.PieceColor.WHITE);
                     }
                 }
 
-                //Can you kill a dangerous piece? Are you safe then?
+                //Can another piece kill a dangerous piece? Are you safe then?
                 //Compare all dangerous moves from the enemy color with your pieces possible moves and re-check with the new ArrayList if the piece
                 //would get removed
                 if(gameOverBlack) {
-                    gameOverBlack = checkIfCheckCanBeRemovedForBlack();
+                    gameOverBlack = canCheckmateBeRemovedByAnotherPiece(gameOverBlack, BasePiece.PieceColor.WHITE);
                 }
 
-                if(gameOverBlack) {
+                if (gameOverBlack) {
                     JOptionPane.showMessageDialog(mainFrame, "Black lost");
                 } else {
                     JOptionPane.showMessageDialog(mainFrame, "Black King in Check");
@@ -110,32 +118,86 @@ public class GameState {
         }
     }
 
-    private static boolean checkIfCheckCanBeRemovedForBlack() {
-        ArrayList<MoveCoordinates> whitePiecesCords = new ArrayList<>();
+    private static boolean simulateKingMove(int kingX, int kingY, BasePiece.PieceColor enemyColor) {
+        boolean checkmate = true;
 
-        for(MoveCoordinates x : DangerousSquaresBlack) {
+        ArrayList<MoveCoordinates> dangerousSquares = enemyColor == BasePiece.PieceColor.WHITE ? DangerousSquaresWhite : DangerousSquaresBlack;
+
+        if (squares[kingX][kingY].currentPiece == null && !dangerousSquares.stream().anyMatch(x -> x.cordX == kingX && x.cordY == kingY)) {
+            checkmate = false;
+        } else if (squares[kingX][kingY].currentPiece != null) {
+            MoveCoordinates pieceToRemove = new MoveCoordinates(kingX, kingY);
+            //Backup and remove the piece temporarily
+            BasePiece backupPieceDestination = squares[kingX][kingY].currentPiece;
+            squares[kingX][kingY].currentPiece = null;
+            setDangerousSquaresTheoretical(pieceToRemove, enemyColor, false);
+            ArrayList<MoveCoordinates> dangerousSquaresTheoretical = enemyColor == BasePiece.PieceColor.WHITE ? DangerousSquaresWhiteTheoretical : DangerousSquaresBlackTheoretical;
+
+            if (!dangerousSquaresTheoretical.stream().anyMatch(x -> x.cordX == kingX && x.cordY == kingY)) {
+                checkmate = false;
+            } else {
+                checkmate = true;
+            }
+
+            //return the piece to original position
+            squares[kingX][kingY].currentPiece = backupPieceDestination;
+        }
+
+        return checkmate;
+    }
+
+    private static boolean canCheckmateBeRemovedByAnotherPiece(boolean gameOver, BasePiece.PieceColor enemyColor) {
+        ArrayList<MoveCoordinates> enemyPiecesCords = new ArrayList<>();
+        BasePiece.PieceColor defenderColor = enemyColor == BasePiece.PieceColor.WHITE ? BasePiece.PieceColor.BLACK : BasePiece.PieceColor.WHITE;
+
+        //Remove one piece at a time and check if king would be safe if it is removed (and can be removed)
+        setDangerousSquaresTheoretical(null, defenderColor, true);
+        ArrayList<MoveCoordinates> dangerousSquaresTheoreticalDefender = enemyColor == BasePiece.PieceColor.WHITE ? DangerousSquaresBlackTheoretical : DangerousSquaresWhiteTheoretical;
+
+        for (MoveCoordinates x : dangerousSquaresTheoreticalDefender) {
             Square currentSquare = squares[x.cordX][x.cordY];
-            if(currentSquare.currentPiece != null && currentSquare.currentPiece.color == BasePiece.PieceColor.WHITE) {
-                whitePiecesCords.add(x);
+            if (currentSquare.currentPiece != null && currentSquare.currentPiece.color == enemyColor) {
+                enemyPiecesCords.add(x);
             }
         }
 
-        if(whitePiecesCords.stream().count() > 0) {
-            for (MoveCoordinates pieceWhite : whitePiecesCords) {
-                //Different approach
-//                setDangerousSquaresTheoretical(pieceWhite);
+        if (enemyPiecesCords.stream().count() > 0) {
+            for (MoveCoordinates enemyPiece : enemyPiecesCords) {
+//                BasePiece backupPieceDestination = squares[enemyPiece.cordX][enemyPiece.cordY].currentPiece;
+//                squares[enemyPiece.cordX][enemyPiece.cordY].currentPiece = null;
+
+                //Remove one piece at a time and check if king would be safe if it is removed (and can be removed)
+                setDangerousSquaresTheoretical(enemyPiece, enemyColor, true);
+                ArrayList<MoveCoordinates> dangerousSquaresTheoreticalAttacker = enemyColor == BasePiece.PieceColor.WHITE ? DangerousSquaresWhiteTheoretical : DangerousSquaresBlackTheoretical;
+
+                //Is king safe now?
+                BasePiece.PieceColor kingToCheck = enemyColor == BasePiece.PieceColor.WHITE ? BasePiece.PieceColor.BLACK : BasePiece.PieceColor.WHITE;
+
+                int kingX = kingToCheck == BasePiece.PieceColor.BLACK ? KingBlack.cordX : KingWhite.cordX;
+                int kingY = kingToCheck == BasePiece.PieceColor.BLACK ? KingBlack.cordY : KingWhite.cordY;
+
+                if (!dangerousSquaresTheoreticalAttacker.stream().anyMatch(x -> x.cordX == kingX && x.cordY == kingY)) {
+                    gameOver = false;
+                } else {
+                    gameOver = true;
+                }
+
+                //return the piece to original position
+//                squares[enemyPiece.cordX][enemyPiece.cordY].currentPiece = backupPieceDestination;
             }
         }
 
-        return true;
+        return gameOver;
     }
 
     private static void setDangerousSquares() {
         setAllAttackMoves();
     }
 
-    private static void setDangerousSquaresTheoretical(MoveCoordinates pieceWhite) {
-//        setAllAttackMovesTheoretical(pieceWhite, BasePiece.PieceColor.WHITE);
+    private static void setDangerousSquaresTheoretical(MoveCoordinates pieceToRemove, BasePiece.PieceColor color, boolean withoutKing) {
+        DangerousSquaresWhiteTheoretical = new ArrayList<>();
+        DangerousSquaresBlackTheoretical = new ArrayList<>();
+        setAllAttackMovesTheoretical(pieceToRemove, color, withoutKing);
     }
 
     private static void switchCurrentColors() {

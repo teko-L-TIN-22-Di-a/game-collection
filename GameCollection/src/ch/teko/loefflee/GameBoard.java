@@ -7,7 +7,7 @@ public class GameBoard {
     {' ', ' ', ' '},};
 
     void setvalue(int line, int column) {
-        gameBoard[line][column] = 'X';
+        gameBoard[line][column] = ' ';
 
     }
 }

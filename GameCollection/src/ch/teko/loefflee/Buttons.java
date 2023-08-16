@@ -6,8 +6,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 public class Buttons extends javax.swing.JFrame {
+
+    static String winMessage = "";
+
+    static boolean exit = true;
 
     public Buttons() {
         initComponents();
@@ -157,129 +163,54 @@ public class Buttons extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonTLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTLActionPerformed
-        if (ButtonTL.getText() == "") {
-            ButtonTL.setText("X");
-            placePiece(gameBoard.gameBoard, 1, "player");
-            gameState result = checkWinner();
-            cpuPosition();
-            result = checkWinner();
-        }
+        setMove(ButtonTL, 1);
     }//GEN-LAST:event_ButtonTLActionPerformed
 
     private void ButtonTMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTMActionPerformed
-        if (ButtonTM.getText() == "") {
-            ButtonTM.setText("X");
-            placePiece(gameBoard.gameBoard, 2, "player");
-            gameState result = checkWinner();
-            cpuPosition();
-            result = checkWinner();
-        }
+        setMove(ButtonTM, 2);
     }//GEN-LAST:event_ButtonTMActionPerformed
 
     private void ButtonTRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTRActionPerformed
-        if (ButtonTR.getText() == "") {
-            ButtonTR.setText("X");
-            placePiece(gameBoard.gameBoard, 3, "player");
-            gameState result = checkWinner();
-            cpuPosition();
-            result = checkWinner();
-        }
+        setMove(ButtonTR, 3);
     }//GEN-LAST:event_ButtonTRActionPerformed
 
     private void ButtonMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonMLActionPerformed
-        if (ButtonML.getText() == "") {
-            ButtonML.setText("X");
-            placePiece(gameBoard.gameBoard, 4, "player");
-            gameState result = checkWinner();
-            cpuPosition();
-            result = checkWinner();
-        }
+        setMove(ButtonML, 4);
     }//GEN-LAST:event_ButtonMLActionPerformed
 
     private void ButtonMMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonMMActionPerformed
-        if (ButtonMM.getText() == "") {
-            ButtonMM.setText("X");
-            placePiece(gameBoard.gameBoard, 5, "player");
-            gameState result = checkWinner();
-            cpuPosition();
-            result = checkWinner();
-        }
+        setMove(ButtonMM, 5);
     }//GEN-LAST:event_ButtonMMActionPerformed
 
     private void ButtonMRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonMRActionPerformed
-        if (ButtonMR.getText() == "") {
-            ButtonMR.setText("X");
-            placePiece(gameBoard.gameBoard, 6, "player");
-            gameState result = checkWinner();
-            cpuPosition();
-            result = checkWinner();
-        }
+        setMove(ButtonMR, 6);
     }//GEN-LAST:event_ButtonMRActionPerformed
 
     private void ButtonBLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBLActionPerformed
-        if (ButtonBL.getText() == "") {
-            ButtonBL.setText("X");
-            placePiece(gameBoard.gameBoard, 7, "player");
-            gameState result = checkWinner();
-            cpuPosition();
-            result = checkWinner();
-        }
+        setMove(ButtonBL, 7);
     }//GEN-LAST:event_ButtonBLActionPerformed
 
     private void ButtonBMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBMActionPerformed
-        if (ButtonBM.getText() == "") {
-            ButtonBM.setText("X");
-            placePiece(gameBoard.gameBoard, 8, "player");
-            gameState result = checkWinner();
-            cpuPosition();
-            result = checkWinner();
-        }
+        setMove(ButtonBM, 8);
     }//GEN-LAST:event_ButtonBMActionPerformed
 
     private void ButtonBRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBRActionPerformed
-        if (ButtonBR.getText() == "") {
-            ButtonBR.setText("X");
-            placePiece(gameBoard.gameBoard, 9, "player");
-            gameState result = checkWinner();
-            cpuPosition();
-            result = checkWinner();
-        }
+        setMove(ButtonBR, 9);
     }//GEN-LAST:event_ButtonBRActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+        new Buttons().setVisible(true);
+        System.out.print("boi");
+        /*do {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new Buttons().setVisible(true);
                 }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Buttons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Buttons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Buttons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Buttons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Buttons().setVisible(true);
-            }
-        });
+            });
+        } while (exit);*/
     }
 
     public void placePiece(char[][] gameBoard, int pos, String user) {
@@ -302,55 +233,46 @@ public class Buttons extends javax.swing.JFrame {
         switch (pos) {
             case 1:
                 gameBoard[0][0] = symbol;
-                ButtonTL.setText(String.valueOf(symbol));
                 ButtonTL.setBackground(color);
                 break;
 
             case 2:
                 gameBoard[0][1] = symbol;
-                ButtonTM.setText(String.valueOf(symbol));
                 ButtonTM.setBackground(color);
                 break;
 
             case 3:
                 gameBoard[0][2] = symbol;
-                ButtonTR.setText(String.valueOf(symbol));
                 ButtonTR.setBackground(color);
                 break;
 
             case 4:
                 gameBoard[1][0] = symbol;
-                ButtonML.setText(String.valueOf(symbol));
                 ButtonML.setBackground(color);
                 break;
 
             case 5:
                 gameBoard[1][1] = symbol;
-                ButtonMM.setText(String.valueOf(symbol));
                 ButtonMM.setBackground(color);
                 break;
 
             case 6:
                 gameBoard[1][2] = symbol;
-                ButtonMR.setText(String.valueOf(symbol));
                 ButtonMR.setBackground(color);
                 break;
 
             case 7:
                 gameBoard[2][0] = symbol;
-                ButtonBL.setText(String.valueOf(symbol));
                 ButtonBL.setBackground(color);
                 break;
 
             case 8:
                 gameBoard[2][1] = symbol;
-                ButtonBM.setText(String.valueOf(symbol));
                 ButtonBM.setBackground(color);
                 break;
 
             case 9:
                 gameBoard[2][2] = symbol;
-                ButtonBR.setText(String.valueOf(symbol));
                 ButtonBR.setBackground(color);
                 break;
         }
@@ -388,10 +310,13 @@ public class Buttons extends javax.swing.JFrame {
 
         for (List l : winning) {
             if (playerPositions.containsAll(l)) {
+                winMessage = "Congratulations, you won!";
                 return gameState.player;
             } else if (cpuPositions.containsAll(l)) {
+                winMessage = "Game over!";
                 return gameState.cpu;
             } else if (playerPositions.size() + cpuPositions.size() == 9) {
+                winMessage = "Tie!";
                 return gameState.tie;
             }
         }
@@ -414,6 +339,48 @@ public class Buttons extends javax.swing.JFrame {
         } else if (gameState.tie) {
 
         }*/
+    }
+
+    private void setMove(JButton button, int coord) {
+        if (button.getText() == "") {
+            placePiece(gameBoard.gameBoard, coord, "player");
+            gameState result = checkWinner();
+            if (result == gameState.none) {
+                cpuPosition();
+                result = checkWinner();
+            }
+
+            if (result != gameState.none) {
+                String[] options = {"Replay", "Exit"};
+                var selection = JOptionPane.showOptionDialog(null,
+                        winMessage,
+                        "Game has ended",
+                        0, 3, null, options, options[0]);
+                if (selection == 0) {
+                    RestartGame();
+                }
+                if (selection == 1 || selection == -1) {
+                    dispose();
+                    //Hauptmenü öffnen
+                }
+            }
+        }
+    }
+
+    private void RestartGame() {
+        gameBoard = new GameBoard();
+        var color = Color.LIGHT_GRAY;
+        ButtonTL.setBackground(color);
+        ButtonTM.setBackground(color);
+        ButtonTR.setBackground(color);
+        ButtonML.setBackground(color);
+        ButtonMM.setBackground(color);
+        ButtonMR.setBackground(color);
+        ButtonBL.setBackground(color);
+        ButtonBM.setBackground(color);
+        ButtonBR.setBackground(color);
+        cpuPositions = new ArrayList<Integer>();
+        playerPositions = new ArrayList<Integer>();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

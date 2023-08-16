@@ -2,6 +2,7 @@ package Chess.pieces;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -13,7 +14,7 @@ public class BasePiece {
         WHITE, BLACK
     }
 
-    public static final int SQUARE_DIMENSION = 50;
+    public static final int SQUARE_DIMENSION = 60;
     public PieceEnum pieceType;
     public JLabel pieceIcon;
     public PieceColor color;
@@ -33,22 +34,22 @@ public class BasePiece {
         switch (type) {
             case King:
                 //init image
-                this.pieceIcon = this.createImage("GameCollection/src/Chess/assets/" + colorString + "_king_1x.png");
+                this.pieceIcon = this.createImage("GameCollection/src/Chess/assets/" + colorString + "_king_2x.png");
                 break;
             case Pawn:
-                this.pieceIcon = this.createImage("GameCollection/src/Chess/assets/" + colorString + "_pawn_1x.png");
+                this.pieceIcon = this.createImage("GameCollection/src/Chess/assets/" + colorString + "_pawn_2x.png");
                 break;
             case Rook:
-                this.pieceIcon = this.createImage("GameCollection/src/Chess/assets/" + colorString + "_rook_1x.png");
+                this.pieceIcon = this.createImage("GameCollection/src/Chess/assets/" + colorString + "_rook_2x.png");
                 break;
             case Queen:
-                this.pieceIcon = this.createImage("GameCollection/src/Chess/assets/" + colorString + "_queen_1x.png");
+                this.pieceIcon = this.createImage("GameCollection/src/Chess/assets/" + colorString + "_queen_2x.png");
                 break;
             case Bishop:
-                this.pieceIcon = this.createImage("GameCollection/src/Chess/assets/" + colorString + "_bishop_1x.png");
+                this.pieceIcon = this.createImage("GameCollection/src/Chess/assets/" + colorString + "_bishop_2x.png");
                 break;
             case Knight:
-                this.pieceIcon = this.createImage("GameCollection/src/Chess/assets/" + colorString + "_knight_1x.png");
+                this.pieceIcon = this.createImage("GameCollection/src/Chess/assets/" + colorString + "_knight_2x.png");
                 break;
         }
     }
@@ -57,7 +58,11 @@ public class BasePiece {
         try {
             Image pieceImage = new ImageIcon(path).getImage();
             pieceImage = pieceImage.getScaledInstance(SQUARE_DIMENSION, SQUARE_DIMENSION, Image.SCALE_SMOOTH);
-            return new JLabel(new ImageIcon(pieceImage));
+            JLabel label = new JLabel();
+            label.setIcon(new ImageIcon(pieceImage));
+            label.setHorizontalAlignment(JLabel.CENTER);
+            label.setVerticalAlignment(JLabel.CENTER);
+            return label;
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();

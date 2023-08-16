@@ -2,18 +2,22 @@ package Chess;
 
 import Chess.util.Chessboard;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public class Chess extends JFrame {
     public static Chessboard chessboard;
+    public static JFrame mainFrame;
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Chess");
+        mainFrame = new JFrame("Chess");
         chessboard = new Chessboard();
 
-        frame.add(chessboard.getChessboard());
-        frame.setSize(700,700);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        mainFrame.add(chessboard.getGUI());
+        mainFrame.pack();
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setMinimumSize(mainFrame.getSize());
+        mainFrame.setVisible(true);
     }
 }

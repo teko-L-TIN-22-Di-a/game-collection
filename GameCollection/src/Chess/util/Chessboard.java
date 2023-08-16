@@ -6,6 +6,7 @@ import Chess.pieces.PieceEnum;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,15 +15,65 @@ import java.io.IOException;
 public class Chessboard extends JPanel {
     public static int rows = 8;
     public static int cols = 8;
-    public static JPanel chessboard = new JPanel();
+    public static JPanel chessboard = new JPanel() {
+        @Override
+        public final Dimension getPreferredSize() {
+            Dimension d = super.getPreferredSize();
+            Dimension prefSize = null;
+            Component c = getParent();
+            if (c == null) {
+                prefSize = new Dimension(
+                        (int)d.getWidth(),(int)d.getHeight());
+            } else if (c!=null &&
+                    c.getWidth()>d.getWidth() &&
+                    c.getHeight()>d.getHeight()) {
+                prefSize = c.getSize();
+            } else {
+                prefSize = d;
+            }
+            int w = (int) prefSize.getWidth();
+            int h = (int) prefSize.getHeight();
+            // the smaller of the two sizes
+            int s = (w>h ? h : w);
+            return new Dimension(s,s);
+        }
+    };
     public static Square[][] squares = new Square[rows][cols];
 
-    public Chessboard() {
-        drawChessboard();
+
+    private final JPanel gui = new JPanel(new BorderLayout(3, 3));
+    private final JLabel message = new JLabel(
+            "Chess Champ is ready to play!");
+    private static final String COLS = "ABCDEFGH";
+
+    public final void initializeGui() {
+        gui.setBorder(new EmptyBorder(5, 5, 5, 5));
+        JToolBar tools = new JToolBar();
+        tools.setFloatable(false);
+        gui.add(tools, BorderLayout.PAGE_START);
+        tools.add(new JButton("New")); // TODO - add functionality!
+        tools.addSeparator();
+        tools.add(new JButton("Resign")); // TODO - add functionality!
+        tools.addSeparator();
+        tools.add(message);
     }
 
-    public void drawChessboard() {
-        chessboard.setLayout(new GridLayout(rows, rows));
+    public Chessboard() {
+        initChessboard();
+        initializeGui();
+    }
+
+    public void initChessboard() {
+        initGameState();
+        chessboard.setLayout(new GridLayout(8,8));
+        JPanel boardConstrain = new JPanel(new GridBagLayout());
+        Color ochre = new Color(204,119,34);
+        boardConstrain.setBackground(ochre);
+        boardConstrain.add(chessboard);
+        gui.add(boardConstrain);
+
+        boardConstrain.addComponentListener(new ResizeListener());
+
 
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
@@ -37,6 +88,10 @@ public class Chessboard extends JPanel {
                 chessboard.add(squares[row][col].squarePanel);
             }
         }
+    }
+
+    private void initGameState() {
+        GameState.initGameState();
     }
 
     public void initPieces(int row, int col) {
@@ -59,7 +114,7 @@ public class Chessboard extends JPanel {
             } else if (col == 7) {
                 squares[row][col] = new Square(PieceEnum.Rook, color, row, col);
             }
-        } else if(row == 1 || row == 6) {
+        } else if (row == 1 || row == 6) {
             BasePiece.PieceColor color = row == 1 ? BasePiece.PieceColor.BLACK : BasePiece.PieceColor.WHITE;
             squares[row][col] = new Square(PieceEnum.Pawn, color, row, col);
         } else {
@@ -67,15 +122,12 @@ public class Chessboard extends JPanel {
         }
     }
 
-//    private JLabel getPieceImageLabel(BasePiece piece) {
-//        Image pieceImage = new ImageIcon(getClass().getResource(piece.getImageFileName())).getImage();
-//        pieceImage = pieceImage.getScaledInstance(SQUARE_DIMENSION, SQUARE_DIMENSION, Image.SCALE_SMOOTH);
-//        JLabel pieceImageLabel = new JLabel(new ImageIcon(pieceImage));
-//        return pieceImageLabel;
-//    }
-
     public JPanel getChessboard() {
         return chessboard;
+    }
+
+    public JPanel getGUI() {
+        return gui;
     }
 
     public static Square[][] getSquares() {

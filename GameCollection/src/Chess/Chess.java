@@ -9,7 +9,7 @@ public class Chess extends JFrame {
     public static Chessboard chessboard;
     public static JFrame mainFrame;
 
-    public static void main(String[] args) {
+    public static void main() {
         mainFrame = new JFrame("Chess");
         chessboard = new Chessboard();
 

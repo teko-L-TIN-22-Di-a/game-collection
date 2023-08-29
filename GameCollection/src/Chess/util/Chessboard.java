@@ -48,10 +48,8 @@ public class Chessboard extends JPanel {
         JToolBar tools = new JToolBar();
         tools.setFloatable(false);
         gui.add(tools, BorderLayout.PAGE_START);
-//        tools.add(new JButton("New")); // TODO - add functionality!
         tools.add(message);
         tools.addSeparator();
-//        tools.add(new JButton("Resign")); // TODO - add functionality!
         tools.add(gameStateMessageWhite);
         tools.addSeparator();
         tools.add(gameStateMessageBlack);

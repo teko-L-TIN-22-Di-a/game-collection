@@ -1,6 +1,7 @@
 package Mainmenu;
 
 import Chess.util.Chessboard;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -9,37 +10,44 @@ import java.awt.event.ActionListener;
 
 public class Start {
     public static JFrame mainFrame;
-    public static JLabel title = new JLabel("GAME COLLECTION");
-    private static final JPanel gui = new JPanel(new BorderLayout(3, 3));
+    public static JPanel titlePanel = new JPanel();
+    public static JPanel buttonPanel = new JPanel();
+    private static JPanel gui = new JPanel();
+    private static JButton buttonChess = new JButton("Chess");
+    private static JButton buttonTicTacToe = new JButton("Tic Tac Toe");
+    private static  JLabel titleLabel;
 
     public static void main(String[] args) {
         mainFrame = new JFrame("Game Collection");
-        gui.setBorder(new EmptyBorder(5, 5, 5, 5));
-        JToolBar tools = new JToolBar();
-        tools.setFloatable(false);
-        gui.add(tools, BorderLayout.PAGE_START);
-        tools.add(title);
+        new GroupLayout(gui);
 
-        JButton buttonChess = new JButton("Chess");
+        titleLabel = new JLabel();
+        titleLabel.setText("Select the game to play");
+
+        buttonTicTacToe.setPreferredSize(new Dimension(100,100));
+        buttonChess.setPreferredSize(new Dimension(100,100));
+
         buttonChess.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 Chess.Chess.main();
             }
         });
-
-        tools.add(buttonChess); // TODO - add functionality!
-        tools.addSeparator();
-
-        JButton buttonTicTacToe = new JButton("Tic Tac Toe");
         buttonTicTacToe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ch.teko.loefflee.Buttons.main();
             }
         });
-        tools.add(buttonTicTacToe); // TODO - add functionality!
+
+        titlePanel.add(titleLabel);
+        buttonPanel.add(buttonTicTacToe);
+        buttonPanel.add(buttonChess);
+
+        gui.add(titlePanel, "Title");
+        gui.add(buttonPanel, "Button");
+
+
         mainFrame.add(gui);
 
         mainFrame.pack();

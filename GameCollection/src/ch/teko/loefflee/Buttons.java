@@ -204,16 +204,6 @@ public class Buttons extends javax.swing.JFrame {
      */
     public static void main() {
         new Buttons().setVisible(true);
-<<<<<<< HEAD
-        /*do {
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    new Buttons().setVisible(true);
-                }
-            });
-        } while (exit);*/
-=======
->>>>>>> dabd26ac34f64e3c7f64d3cca50eec6696ea962a
     }
 
     public void placePiece(char[][] gameBoard, int pos, String user) {

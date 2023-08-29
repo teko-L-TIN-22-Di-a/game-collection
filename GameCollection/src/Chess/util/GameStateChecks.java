@@ -51,6 +51,7 @@ public class GameStateChecks {
                 case Bishop -> addIntercardinalMoves(pieceSquare.cordX, pieceSquare.cordY, dangerousSquares, color);
                 case Rook -> addCardinalMoves(pieceSquare.cordX, pieceSquare.cordY, dangerousSquares, color);
                 case King -> addKingMoves(pieceSquare.cordX, pieceSquare.cordY, dangerousSquares, color);
+                case Wildcard -> new ArrayList<MoveCoordinates>();
             }
         }
     }
@@ -69,28 +70,42 @@ public class GameStateChecks {
         CurrentPiecesToCheck = pieces;
     }
 
-
     public static ArrayList<MoveCoordinates> CurrentPiecesToCheckTheoretical = new ArrayList<>();
     public static ArrayList<MoveCoordinates> DangerousSquaresBlackTheoretical = new ArrayList<>();
     public static ArrayList<MoveCoordinates> DangerousSquaresWhiteTheoretical = new ArrayList<>();
 
-    public static void setAllAttackMovesTheoretical(MoveCoordinates pieceToRemove, BasePiece.PieceColor pieceColor, boolean withoutKing) {
+    public static void setAllAttackMovesTheoretical(MoveCoordinates pieceToRemove, MoveCoordinates pieceToAdd, BasePiece.PieceColor pieceColor, boolean withoutKing) {
         for (PieceEnum pieceType : PieceEnum.values()) {
-            if(!withoutKing || withoutKing && pieceType != PieceEnum.King) {
-                setCurrentPiecesToCheckTheoretical(pieceType, pieceColor, pieceToRemove);
-                fillDangerousSquares(pieceType, pieceColor, true);
+            if (!withoutKing || withoutKing && pieceType != PieceEnum.King) {
+                if (pieceColor == null) {
+                    setCurrentPiecesToCheckTheoretical(pieceType, BasePiece.PieceColor.WHITE, pieceToRemove, pieceToAdd);
+                    fillDangerousSquares(pieceType, BasePiece.PieceColor.WHITE, true);
+                    setCurrentPiecesToCheckTheoretical(pieceType, BasePiece.PieceColor.BLACK, pieceToRemove, pieceToAdd);
+                    fillDangerousSquares(pieceType, BasePiece.PieceColor.BLACK, true);
+                } else {
+                    setCurrentPiecesToCheckTheoretical(pieceType, pieceColor, pieceToRemove, pieceToAdd);
+                    fillDangerousSquares(pieceType, pieceColor, true);
+                }
             }
         }
     }
 
-    private static void setCurrentPiecesToCheckTheoretical(PieceEnum type, BasePiece.PieceColor colorToCheck, MoveCoordinates pieceToRemove) {
+    private static void setCurrentPiecesToCheckTheoretical(PieceEnum type, BasePiece.PieceColor colorToCheck, MoveCoordinates pieceToRemove, MoveCoordinates pieceToAdd) {
         ArrayList<MoveCoordinates> pieces = new ArrayList<>();
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
-                if (pieceToRemove == null || !(x == pieceToRemove.cordX && y == pieceToRemove.cordY)) {
+                if (pieceToAdd == null && (pieceToRemove == null || !(x == pieceToRemove.cordX && y == pieceToRemove.cordY))) {
+                    BasePiece currentPiece = squares[x][y].currentPiece;
+
+                    if (currentPiece != null && currentPiece.pieceType == type && currentPiece.color == colorToCheck) {
+                        pieces.add(new MoveCoordinates(x, y));
+                    }
+                } else if (pieceToAdd != null) {
                     BasePiece currentPiece = squares[x][y].currentPiece;
                     if (currentPiece != null && currentPiece.pieceType == type && currentPiece.color == colorToCheck) {
                         pieces.add(new MoveCoordinates(x, y));
+                    } else if (type == PieceEnum.Wildcard) {
+                        pieces.add(new MoveCoordinates(pieceToAdd.cordX, pieceToAdd.cordY));
                     }
                 }
             }

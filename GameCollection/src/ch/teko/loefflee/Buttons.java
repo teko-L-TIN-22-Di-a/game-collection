@@ -202,8 +202,9 @@ public class Buttons extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main() {
         new Buttons().setVisible(true);
+<<<<<<< HEAD
         /*do {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
@@ -211,6 +212,8 @@ public class Buttons extends javax.swing.JFrame {
                 }
             });
         } while (exit);*/
+=======
+>>>>>>> dabd26ac34f64e3c7f64d3cca50eec6696ea962a
     }
 
     public void placePiece(char[][] gameBoard, int pos, String user) {

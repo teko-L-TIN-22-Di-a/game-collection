@@ -47,6 +47,7 @@ public class Square implements MouseListener {
                     case Rook -> new Rook(type, color);
                     case Queen -> new Queen(type, color);
                     case Knight -> new Knight(type, color);
+                    case Wildcard -> null;
                 } : null;
 
         Border squareBorder = BorderFactory.createLineBorder(Color.black);

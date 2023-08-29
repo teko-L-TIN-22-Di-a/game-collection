@@ -3,14 +3,9 @@ package Chess.util;
 import Chess.pieces.BasePiece;
 import Chess.pieces.PieceEnum;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class Chessboard extends JPanel {
     public static int rows = 8;
@@ -42,20 +37,23 @@ public class Chessboard extends JPanel {
 
 
     private final JPanel gui = new JPanel(new BorderLayout(3, 3));
-    private final JLabel message = new JLabel(
-            "Chess Champ is ready to play!");
-    private static final String COLS = "ABCDEFGH";
+    public static JLabel message = new JLabel(
+            "WHITE's turn");
+
+    public static JLabel gameStateMessageWhite = new JLabel("");
+    public static JLabel gameStateMessageBlack = new JLabel("");
 
     public final void initializeGui() {
         gui.setBorder(new EmptyBorder(5, 5, 5, 5));
         JToolBar tools = new JToolBar();
         tools.setFloatable(false);
         gui.add(tools, BorderLayout.PAGE_START);
-        tools.add(new JButton("New")); // TODO - add functionality!
-        tools.addSeparator();
-        tools.add(new JButton("Resign")); // TODO - add functionality!
-        tools.addSeparator();
         tools.add(message);
+        tools.addSeparator();
+        tools.add(gameStateMessageWhite);
+        tools.addSeparator();
+        tools.add(gameStateMessageBlack);
+
     }
 
     public Chessboard() {

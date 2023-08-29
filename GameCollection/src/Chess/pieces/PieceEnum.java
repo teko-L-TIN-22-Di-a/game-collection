@@ -6,5 +6,6 @@ public enum PieceEnum {
     Knight,
     Pawn,
     Queen,
-    Rook
+    Rook,
+    Wildcard
 }

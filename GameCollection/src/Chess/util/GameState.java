@@ -68,18 +68,26 @@ public class GameState {
                 //Can another piece kill a dangerous piece? Are you safe then?
                 //Compare all dangerous moves from the enemy color with your pieces possible moves and re-check with
                 //the new ArrayList if the piece would get removed
-                if(gameOverWhite) {
+                if (gameOverWhite) {
                     gameOverWhite = canCheckmateBeRemovedByAnotherPiece(gameOverWhite, BasePiece.PieceColor.BLACK);
                 }
 
                 //Can another piece block a dangerous piece? Are you safe then?
-                if(gameOverWhite) {
+                if (gameOverWhite) {
                     gameOverWhite = canCheckmateBeBlockedByAnotherPiece(gameOverWhite, BasePiece.PieceColor.BLACK);
                 }
 
                 if (gameOverWhite) {
 //                    JOptionPane.showMessageDialog(mainFrame, "White lost");
                     gameStateMessageWhite.setText("White lost");
+                    int exit = JOptionPane.showConfirmDialog(mainFrame,
+                            "Black has won the game.",
+                            "Game over",
+                            JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                    if (exit == JOptionPane.YES_OPTION) {
+                        System.exit(0);
+                    }
+
                 } else {
 //                    JOptionPane.showMessageDialog(mainFrame, "White King in Check");
                     gameStateMessageWhite.setText("White King in Check");
@@ -91,7 +99,8 @@ public class GameState {
             }
         }
 
-        for (MoveCoordinates dangerSquare : DangerousSquaresWhite) {
+        for (
+                MoveCoordinates dangerSquare : DangerousSquaresWhite) {
             if (dangerSquare.cordX == kingBlackX && dangerSquare.cordY == kingBlackY) {
                 CheckStateBlack = true;
                 //Can the King escape or is it game over?
@@ -110,18 +119,25 @@ public class GameState {
                 //Can another piece kill a dangerous piece? Are you safe then?
                 //Compare all dangerous moves from the enemy color with your pieces possible moves and re-check with
                 //the new ArrayList if the piece would get removed
-                if(gameOverBlack) {
+                if (gameOverBlack) {
                     gameOverBlack = canCheckmateBeRemovedByAnotherPiece(gameOverBlack, BasePiece.PieceColor.WHITE);
                 }
 
                 //Can another piece block a dangerous piece? Are you safe then?
-                if(gameOverBlack) {
+                if (gameOverBlack) {
                     gameOverBlack = canCheckmateBeBlockedByAnotherPiece(gameOverBlack, BasePiece.PieceColor.WHITE);
                 }
 
                 if (gameOverBlack) {
 //                    JOptionPane.showMessageDialog(mainFrame, "Black lost");
                     gameStateMessageBlack.setText("Black lost");
+                    int exit = JOptionPane.showConfirmDialog(mainFrame,
+                            "White has won the game.",
+                            "Game over",
+                            JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                    if (exit == JOptionPane.YES_OPTION) {
+                        System.exit(0);
+                    }
                 } else {
 //                    JOptionPane.showMessageDialog(mainFrame, "Black King in Check");
                     gameStateMessageBlack.setText("Black King in Check");
@@ -132,6 +148,7 @@ public class GameState {
                 gameStateMessageBlack.setText("");
             }
         }
+
     }
 
     private static boolean simulateKingMove(int kingX, int kingY, BasePiece.PieceColor enemyColor) {
@@ -146,7 +163,7 @@ public class GameState {
             //Backup and remove the piece temporarily
             BasePiece backupPieceDestination = squares[kingX][kingY].currentPiece;
             squares[kingX][kingY].currentPiece = null;
-            setDangerousSquaresTheoretical(pieceToRemove,null, enemyColor, false);
+            setDangerousSquaresTheoretical(pieceToRemove, null, enemyColor, false);
             ArrayList<MoveCoordinates> dangerousSquaresTheoretical = enemyColor == BasePiece.PieceColor.WHITE ? DangerousSquaresWhiteTheoretical : DangerousSquaresBlackTheoretical;
 
             if (!dangerousSquaresTheoretical.stream().anyMatch(x -> x.cordX == kingX && x.cordY == kingY)) {
@@ -167,7 +184,7 @@ public class GameState {
         BasePiece.PieceColor defenderColor = enemyColor == BasePiece.PieceColor.WHITE ? BasePiece.PieceColor.BLACK : BasePiece.PieceColor.WHITE;
 
         //Get all enemy pieces that are in range of the defender
-        setDangerousSquaresTheoretical(null,null, defenderColor, true);
+        setDangerousSquaresTheoretical(null, null, defenderColor, true);
         ArrayList<MoveCoordinates> dangerousSquaresTheoreticalDefender = enemyColor == BasePiece.PieceColor.WHITE ? DangerousSquaresBlackTheoretical : DangerousSquaresWhiteTheoretical;
 
         for (MoveCoordinates x : dangerousSquaresTheoreticalDefender) {
@@ -235,7 +252,7 @@ public class GameState {
             }
         }
 
-        if(overlapsToCheck.size() <= 0) {
+        if (overlapsToCheck.size() <= 0) {
             gameOver = true;
         }
 

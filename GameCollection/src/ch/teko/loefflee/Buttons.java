@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.plaf.ColorUIResource;
 
 public class Buttons extends javax.swing.JFrame {
 
@@ -334,7 +335,8 @@ public class Buttons extends javax.swing.JFrame {
     }
 
     private void setMove(JButton button, int coord) {
-        if (button.getText() == "") {
+        Color color = button.getBackground();
+        if (button.getBackground().getRGB() == Color.LIGHT_GRAY.getRGB()) {
             placePiece(gameBoard.gameBoard, coord, "player");
             gameState result = checkWinner();
             if (result == gameState.none) {

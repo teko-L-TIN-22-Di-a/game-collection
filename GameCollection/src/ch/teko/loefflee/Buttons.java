@@ -28,7 +28,8 @@ public class Buttons extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+        playerPositions = new ArrayList<Integer>();
+        cpuPositions = new ArrayList<Integer>();
         ButtonBack = new javax.swing.JPanel();
         ButtonTL = new javax.swing.JButton();
         ButtonTR = new javax.swing.JButton();
@@ -335,8 +336,7 @@ public class Buttons extends javax.swing.JFrame {
     }
 
     private void setMove(JButton button, int coord) {
-        Color color = button.getBackground();
-        if (button.getBackground().getRGB() == Color.LIGHT_GRAY.getRGB()) {
+        if (!playerPositions.stream().anyMatch(x -> x == coord) && !cpuPositions.stream().anyMatch(y -> y == coord)) {
             placePiece(gameBoard.gameBoard, coord, "player");
             gameState result = checkWinner();
             if (result == gameState.none) {
